@@ -1,0 +1,102 @@
+.container {
+	min-height: 100vh;
+	min-width: 470px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #f3f3f3;
+}
+
+.container p {
+	font-family: "Kalameh";
+	font-weight: 700;
+	font-size: 31px;
+	text-align: center;
+	margin-bottom: 154px;
+	margin-top: 45px;
+}
+
+.container input {
+	width: 400px;
+	height: 53px;
+	margin: 10px 35px;
+	border-radius: 15px;
+	padding: 22px 15px;
+	background-color: #f2f2f2;
+	border: none;
+	font-weight: 400;
+	font-size: 16px;
+	text-align: right;
+	color: #28282880;
+}
+
+.form {
+	width: 470px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #ffffff;
+	border-radius: 40px;
+	border: 1px solid #e4e4e4;
+}
+
+.first {
+	margin-bottom: 63px;
+	margin-top: 51px;
+}
+
+.first h2 {
+	font-weight: 600;
+	font-size: 24px;
+	margin-top: 17px;
+	text-align: right;
+	color: #282828;
+}
+.form button {
+	width: 400px;
+	height: 53px;
+	border-radius: 15px;
+	padding: 10px;
+	margin: 30px 32px 10px;
+	background-color: #55a3f0;
+	font-weight: 600;
+	font-size: 20px;
+	text-align: center;
+	color: #ffffff;
+	border: none;
+	cursor: pointer;
+}
+
+.form div:last-child {
+	width: 90%;
+	display: flex;
+	justify-content: flex-start;
+	margin-right: 20px;
+}
+
+.form a {
+	text-decoration: none;
+	display: inline-block;
+	margin-bottom: 20px;
+	margin-top: 16px;
+}
+
+.form span {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 100%;
+	text-align: right;
+	color: #3a8bed;
+}
+
+.form p {
+	min-height: 14px;
+	margin: 5px 35px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 100%;
+	text-align: right;
+	color: #ed3a3a;
+}

@@ -1,15 +1,19 @@
-:root {
-	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
+@font-face {
+	font-family: "Kalameh";
+	src: url("./assets/fonts/KalamehWebFaNum.ttf") format("truetype"),
+		url("./assets/fonts/KalamehWebFaNum.woff") format("woff"),
+		url("./assets/fonts/KalamehWebFaNum.woff2") format("woff2");
+}
 
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+@font-face {
+	font-family: "Vazirmatn";
+	src: url("./assets/fonts/Vazirmatn-Regular.ttf") format("truetype"),
+		url("./assets/fonts/Vazirmatn-Regular.woff2") format("woff2");
 }
 
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	font-family: "Vazirmatn", Arial, Helvetica, sans-serif;
 }
