@@ -1,5 +1,7 @@
+import ProductsList from "../components/ProductsList";
+
 function DashboardPage() {
-	return <div>DashboardPage</div>;
+	return <ProductsList />;
 }
 
 export default DashboardPage;
