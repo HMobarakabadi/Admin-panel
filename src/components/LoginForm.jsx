@@ -5,6 +5,7 @@ import { loginSchema } from "../schemas/loginSchema";
 
 import styles from "./LoginForm.module.css";
 import { Link } from "react-router-dom";
+import { useLoginMutation } from "../hooks/useAuth";
 
 function LoginForm() {
 	const {
@@ -15,8 +16,13 @@ function LoginForm() {
 		resolver: yupResolver(loginSchema),
 	});
 
+	const loginMutation = useLoginMutation();
+
 	const onSubmit = async (data) => {
-		console.log(data);
+		loginMutation.mutate({
+			username: data.username,
+			password: data.password,
+		});
 	};
 
 	return (

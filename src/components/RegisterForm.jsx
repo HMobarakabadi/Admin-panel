@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { registerSchema } from "../schemas/registerSchema";
 import { Link } from "react-router-dom";
+
+import { registerSchema } from "../schemas/registerSchema";
+import { useRegisterMutation } from "../hooks/useAuth";
 
 import styles from "./LoginForm.module.css";
 
@@ -14,8 +16,13 @@ function RegisterForm() {
 		resolver: yupResolver(registerSchema),
 	});
 
+	const registerMutation = useRegisterMutation();
+
 	const onSubmit = async (data) => {
-		console.log(data);
+		registerMutation.mutate({
+			username: data.username,
+			password: data.password,
+		});
 	};
 
 	return (
