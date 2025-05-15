@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../schemas/loginSchema";
 
 import styles from "./LoginForm.module.css";
+import { Link } from "react-router-dom";
 
 function LoginForm() {
 	const {
@@ -36,9 +37,7 @@ function LoginForm() {
 				</div>
 				<button type="submit">ورود</button>
 				<div>
-					<a href="#">
-						<span>ایجاد حساب کاربری!</span>
-					</a>
+					<Link to="/register">ایجاد حساب کاربری!</Link>
 				</div>
 			</form>
 		</div>
