@@ -66,9 +66,6 @@ function AddProductModal({ onClose, defaultValues, mode = "create" }) {
 					</div>
 
 					<div className={styles.formActions}>
-						{/* <button className={`${styles.btn} ${styles.btnPrimary}`} onClick={onSubmit}>
-							ایجاد
-						</button> */}
 						<button type="submit" className={`${styles.btn} ${styles.btnPrimary}`}>
 							{mode === "edit" ? "ثبت اطلاعات جدید" : "ایجاد"}
 						</button>

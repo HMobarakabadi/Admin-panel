@@ -23,5 +23,14 @@ const updateProduct = async ({ id, ...productData }) => {
 	});
 	return res.data;
 };
+const deleteProduct = async (id) => {
+	const token = Cookies.get("token");
+	const res = await axios.delete(`http://localhost:3000/products/${id}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+	return res.data;
+};
 
-export { fetchProducts, createProduct, updateProduct };
+export { fetchProducts, createProduct, updateProduct, deleteProduct };

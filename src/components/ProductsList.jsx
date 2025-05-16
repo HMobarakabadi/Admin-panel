@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../services/productService";
+import { useDeleteProductMutation } from "../hooks/useProducts";
 
 import AddProductModal from "./AddProductModal";
+import DeleteProductModal from "./DeleteProductModal";
 
 import styles from "./ProductsList.module.css";
 
@@ -13,6 +15,7 @@ function ProductsList() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 	const openModal = () => setIsOpen(true);
 	const closeModal = () => setIsOpen(false);
@@ -27,6 +30,18 @@ function ProductsList() {
 		setIsEditModalOpen(false);
 	};
 
+	const openDeleteModal = (product) => {
+		setSelectedProduct(product);
+		setIsDeleteModalOpen(true);
+	};
+
+	const closeDeleteModal = () => {
+		setIsDeleteModalOpen(false);
+		setSelectedProduct(null);
+	};
+
+	const deleteProductMutation = useDeleteProductMutation(closeDeleteModal);
+
 	if (isLoading) {
 		return <p>Loading...</p>;
 	}
@@ -38,6 +53,7 @@ function ProductsList() {
 	const filteredProducts = data.data.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
 
 	console.log(data);
+	console.log(filteredProducts);
 
 	return (
 		<div className={styles.container}>
@@ -74,28 +90,43 @@ function ProductsList() {
 					</tr>
 				</thead>
 				<tbody className={styles.tableBody}>
-					{filteredProducts.map((product) => (
-						<tr key={product.id}>
-							<td>{product.name}</td>
-							<td>{product.quantity}</td>
-							<td>{product.price} هزار تومان</td>
-							<td>{product.id}</td>
-							<td>
-								<div className={styles.actionButtons}>
-									<button className={styles.deleteBtn}>
-										<img src="/src/assets/trash.png" />
-									</button>
-									<button onClick={() => openEditModal(product)} className={styles.editBtn}>
-										<img src="/src/assets/edit.png" />
-									</button>
-								</div>
+					{filteredProducts.length > 0 ? (
+						filteredProducts.map((product) => (
+							<tr key={product.id}>
+								<td>{product.name}</td>
+								<td>{product.quantity}</td>
+								<td>{product.price} هزار تومان</td>
+								<td>{product.id}</td>
+								<td>
+									<div className={styles.actionButtons}>
+										<button onClick={() => openDeleteModal(product)} className={styles.deleteBtn}>
+											<img src="/src/assets/trash.png" />
+										</button>
+										<button onClick={() => openEditModal(product)} className={styles.editBtn}>
+											<img src="/src/assets/edit.png" />
+										</button>
+									</div>
+								</td>
+							</tr>
+						))
+					) : (
+						<tr>
+							<td colSpan="5" className={styles.tableD}>
+								نتیجه‌ای برای جستجو یافت نشد.
 							</td>
 						</tr>
-					))}
+					)}
 				</tbody>
 			</table>
 			{isOpen && <AddProductModal onClose={closeModal} />}
 			{isEditModalOpen && <AddProductModal onClose={closeEditModal} defaultValues={selectedProduct} mode="edit" />}
+			{isDeleteModalOpen && (
+				<DeleteProductModal
+					product={selectedProduct}
+					onCancel={closeDeleteModal}
+					onConfirm={() => deleteProductMutation.mutate(selectedProduct.id)}
+				/>
+			)}
 
 			<div className={styles.pagination}>
 				<button className={`${styles.active} ${styles.pageItem}`}>۱</button>

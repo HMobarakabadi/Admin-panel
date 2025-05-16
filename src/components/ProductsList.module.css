@@ -61,10 +61,6 @@ body {
 	text-align: right;
 }
 
-.searchIcon {
-	color: #888;
-}
-
 .titleSection {
 	display: flex;
 	justify-content: space-between;
@@ -101,7 +97,6 @@ body {
 	width: 100%;
 	border-collapse: collapse;
 	border-radius: 30px;
-	/* background-color: #ffffff; */
 	border: 1px solid #e4e4e4;
 	overflow: hidden;
 }
@@ -137,6 +132,12 @@ body {
 .tableBody td {
 	padding: 12px 15px;
 	color: #555;
+}
+
+.tableD {
+	text-align: center;
+	padding: 1rem;
+	color: #888;
 }
 
 .actionButtons {
