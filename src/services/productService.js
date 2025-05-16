@@ -1,9 +1,19 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const fetchProducts = async ({ page = 1 }) => {
-	const res = await axios.get(`http://localhost:3000/products?page=${page}&limit=10`);
-	return res.data;
+const fetchProducts = async ({ page = 1, search }) => {
+	try {
+		const res = await axios.get("http://localhost:3000/products", {
+			params: { page, limit: 10, name: search },
+		});
+
+		return res.data;
+	} catch (error) {
+		if (error.response && error.response.status === 400) {
+			return { data: [] };
+		}
+		throw error;
+	}
 };
 
 const createProduct = async (productData) => {

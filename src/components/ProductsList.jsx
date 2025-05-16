@@ -11,14 +11,14 @@ import Pagination from "./Pagination";
 
 function ProductsList() {
 	const [page, setPage] = useState(1);
+	const [search, setSearch] = useState("");
 
 	const { data, error, isLoading } = useQuery({
-		queryKey: ["products", page],
-		queryFn: () => fetchProducts({ page }),
+		queryKey: ["products", page, search],
+		queryFn: () => fetchProducts({ page, search }),
 		keepPreviousData: true,
 	});
 
-	const [search, setSearch] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
@@ -116,7 +116,7 @@ function ProductsList() {
 					) : (
 						<tr>
 							<td colSpan="5" className={styles.tableD}>
-								نتیجه‌ای برای جستجو یافت نشد.
+								{search ? "نتیجه‌ای برای جستجو یافت نشد." : "هیچ محصولی وجود ندارد."}
 							</td>
 						</tr>
 					)}
