@@ -11,8 +11,21 @@ function ProductsList() {
 
 	const [search, setSearch] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
+	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+	const [selectedProduct, setSelectedProduct] = useState(null);
+
 	const openModal = () => setIsOpen(true);
 	const closeModal = () => setIsOpen(false);
+
+	const openEditModal = (product) => {
+		setSelectedProduct(product);
+		setIsEditModalOpen(true);
+	};
+
+	const closeEditModal = () => {
+		setSelectedProduct(null);
+		setIsEditModalOpen(false);
+	};
 
 	if (isLoading) {
 		return <p>Loading...</p>;
@@ -72,7 +85,7 @@ function ProductsList() {
 									<button className={styles.deleteBtn}>
 										<img src="/src/assets/trash.png" />
 									</button>
-									<button className={styles.editBtn}>
+									<button onClick={() => openEditModal(product)} className={styles.editBtn}>
 										<img src="/src/assets/edit.png" />
 									</button>
 								</div>
@@ -82,6 +95,7 @@ function ProductsList() {
 				</tbody>
 			</table>
 			{isOpen && <AddProductModal onClose={closeModal} />}
+			{isEditModalOpen && <AddProductModal onClose={closeEditModal} defaultValues={selectedProduct} mode="edit" />}
 
 			<div className={styles.pagination}>
 				<button className={`${styles.active} ${styles.pageItem}`}>۱</button>

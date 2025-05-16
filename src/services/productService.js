@@ -14,4 +14,14 @@ const createProduct = async (productData) => {
 	return res.data;
 };
 
-export { fetchProducts, createProduct };
+const updateProduct = async ({ id, ...productData }) => {
+	const token = Cookies.get("token");
+	const res = await axios.put(`http://localhost:3000/products/${id}`, productData, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+	return res.data;
+};
+
+export { fetchProducts, createProduct, updateProduct };

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { loginUser, registerUser } from "../services/authService";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const useLoginMutation = () => {
 	const navigate = useNavigate();
@@ -14,7 +15,7 @@ const useLoginMutation = () => {
 			navigate("/dashboard", { replace: true });
 		},
 		onError: (error) => {
-			console.error("ورود ناموفق:", error.response?.data?.message || error.message);
+			toast.error(error.response?.data?.message || "ورود ناموفق");
 		},
 	});
 };
@@ -28,7 +29,7 @@ const useRegisterMutation = () => {
 			navigate("/login", { replace: true });
 		},
 		onError: (error) => {
-			console.error("خطا در ثبت‌نام:", error.response?.data?.message || error.message);
+			toast.error(error.response?.data?.message || "خطا در ثبت‌نام");
 		},
 	});
 };

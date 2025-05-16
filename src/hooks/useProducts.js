@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProduct } from "../services/productService";
+import { createProduct, updateProduct } from "../services/productService";
+import { toast } from "react-toastify";
 
-export const useCreateProductMutation = (onSuccessCallback) => {
+const useCreateProductMutation = (onSuccessCallback) => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
@@ -10,5 +11,25 @@ export const useCreateProductMutation = (onSuccessCallback) => {
 			queryClient.invalidateQueries(["products"]);
 			onSuccessCallback();
 		},
+		onError: (error) => {
+			toast.error(error.response?.data?.message || "خطا در ایجاد محصول");
+		},
 	});
 };
+
+const useUpdateProductMutation = (onSuccessCallback) => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: updateProduct,
+		onSuccess: () => {
+			queryClient.invalidateQueries(["products"]);
+			onSuccessCallback();
+		},
+		onError: (error) => {
+			toast.error(error.response?.data?.message || "خطا در ویرایش محصول");
+		},
+	});
+};
+
+export { useCreateProductMutation, useUpdateProductMutation };
