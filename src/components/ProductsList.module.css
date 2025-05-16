@@ -159,39 +159,5 @@ body {
 
 .deleteBtn,
 .editBtn {
-	/* color: #e74c3c; */
 	background-color: #ffffff;
-}
-
-/* .editBtn {
-	color: #2ecc71;
-	background-color: #eeffee;
-} */
-
-.pagination {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-	gap: 5px;
-}
-
-.pageItem {
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	border: 1px solid #ddd;
-	background-color: #fff;
-}
-
-.active {
-	background-color: #4a90e2;
-	color: white;
-	border: none;
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
 }

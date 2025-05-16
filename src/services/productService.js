@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const fetchProducts = async () => {
-	const res = await axios.get("http://localhost:3000/products?page=1&limit=10");
+const fetchProducts = async ({ page = 1 }) => {
+	const res = await axios.get(`http://localhost:3000/products?page=${page}&limit=10`);
 	return res.data;
 };
 

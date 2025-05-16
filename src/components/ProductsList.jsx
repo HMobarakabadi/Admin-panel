@@ -7,9 +7,16 @@ import AddProductModal from "./AddProductModal";
 import DeleteProductModal from "./DeleteProductModal";
 
 import styles from "./ProductsList.module.css";
+import Pagination from "./Pagination";
 
 function ProductsList() {
-	const { data, error, isLoading } = useQuery({ queryKey: ["products"], queryFn: fetchProducts });
+	const [page, setPage] = useState(1);
+
+	const { data, error, isLoading } = useQuery({
+		queryKey: ["products", page],
+		queryFn: () => fetchProducts({ page }),
+		keepPreviousData: true,
+	});
 
 	const [search, setSearch] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
@@ -51,9 +58,6 @@ function ProductsList() {
 	}
 
 	const filteredProducts = data.data.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
-
-	console.log(data);
-	console.log(filteredProducts);
 
 	return (
 		<div className={styles.container}>
@@ -128,11 +132,7 @@ function ProductsList() {
 				/>
 			)}
 
-			<div className={styles.pagination}>
-				<button className={`${styles.active} ${styles.pageItem}`}>۱</button>
-				<button className={styles.pageItem}>۲</button>
-				<button className={styles.pageItem}>۳</button>
-			</div>
+			<Pagination page={page} totalPages={data.totalPages} onPageChange={(newPage) => setPage(newPage)} />
 		</div>
 	);
 }
