@@ -2,12 +2,17 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../services/productService";
 
+import AddProductModal from "./AddProductModal";
+
 import styles from "./ProductsList.module.css";
 
 function ProductsList() {
 	const { data, error, isLoading } = useQuery({ queryKey: ["products"], queryFn: fetchProducts });
 
 	const [search, setSearch] = useState("");
+	const [isOpen, setIsOpen] = useState(false);
+	const openModal = () => setIsOpen(true);
+	const closeModal = () => setIsOpen(false);
 
 	if (isLoading) {
 		return <p>Loading...</p>;
@@ -41,7 +46,9 @@ function ProductsList() {
 					<img src="/src/assets/setting-3.svg" />
 					<span>مدیریت کالا</span>
 				</div>
-				<button className={styles.addProduct}>افزودن محصول</button>
+				<button className={styles.addProduct} onClick={openModal}>
+					افزودن محصول
+				</button>
 			</div>
 			<table className={styles.table}>
 				<thead className={styles.tableHeader}>
@@ -74,9 +81,10 @@ function ProductsList() {
 					))}
 				</tbody>
 			</table>
+			{isOpen && <AddProductModal onClose={closeModal} />}
 
 			<div className={styles.pagination}>
-				<button className={styles.active}>۱</button>
+				<button className={`${styles.active} ${styles.pageItem}`}>۱</button>
 				<button className={styles.pageItem}>۲</button>
 				<button className={styles.pageItem}>۳</button>
 			</div>
