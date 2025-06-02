@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProduct, deleteProduct, updateProduct } from "../services/productService";
+import { createProduct, deleteProduct, fetchProducts, updateProduct } from "../services/productService";
 import { toast } from "react-toastify";
 
 const useCreateProductMutation = (onSuccessCallback) => {
@@ -32,13 +32,23 @@ const useUpdateProductMutation = (onSuccessCallback) => {
 	});
 };
 
-const useDeleteProductMutation = (onSuccessCallback) => {
+const useDeleteProductMutation = ({ onSuccessCallback, page, search, setPage }) => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
 		mutationFn: deleteProduct,
-		onSuccess: () => {
-			queryClient.invalidateQueries(["products"]);
+		onSuccess: async () => {
+			const updatedData = await queryClient.fetchQuery({
+				queryKey: ["products", page, search],
+				queryFn: () => fetchProducts({ page, search }),
+			});
+
+			if (updatedData.data.length === 0 && page > 1) {
+				setPage((prev) => prev - 1);
+			} else {
+				queryClient.invalidateQueries(["products"]);
+			}
+
 			toast.success("محصول با موفقیت حذف شد");
 			onSuccessCallback();
 		},

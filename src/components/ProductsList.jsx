@@ -47,7 +47,12 @@ function ProductsList() {
 		setSelectedProduct(null);
 	};
 
-	const deleteProductMutation = useDeleteProductMutation(closeDeleteModal);
+	const deleteProductMutation = useDeleteProductMutation({
+		onSuccessCallback: closeDeleteModal,
+		page,
+		search,
+		setPage,
+	});
 
 	if (isLoading) {
 		return <p>Loading...</p>;
